@@ -9,9 +9,7 @@ import { Injectable } from '@nestjs/common'
 export class AppService {
   constructor(private filmRepository: FilmRepository) { }
 
-  search = async (keyword: string): Promise<Film[]> => {
-    return await this.filmRepository.search(keyword)
-  }
+  search = async (keyword: string): Promise<Film[]> => await this.filmRepository.search(keyword)
 
   create = async (createFilmDto: CreateFilmDto): Promise<void> => {
     const releaseDate = new Date(createFilmDto.releaseDate)

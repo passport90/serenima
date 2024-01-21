@@ -1,5 +1,5 @@
-import Film from 'src/entities/film.entity'
+import FilmDto from './film.dto'
 
-export interface FilmList {
-  films: Film[]
+export interface FilmListDto {
+  films: FilmDto[]
 }
