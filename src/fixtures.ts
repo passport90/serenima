@@ -1,8 +1,14 @@
 /* istanbul ignore file */
+
 import CreateFilmDto from './dto/create-film.dto'
 import Film from './entities/film.entity'
 import FilmDto from './dto/film.dto'
 
+/**
+ * Returns a sample `FilmDto` object with predefined values for testing or demonstration.
+ *
+ * @returns A sample `FilmDto` object.
+ */
 export const getSampleFilmDto = (): FilmDto => ({
   uuid: 'e89351df-c143-4714-8a94-33882d1b0919',
   imdbId: 't0123456',
@@ -10,6 +16,11 @@ export const getSampleFilmDto = (): FilmDto => ({
   releaseDate: '1976-10-09',
 })
 
+/**
+ * Returns a sample `Film` object with predefined values for testing or demonstration.
+ *
+ * @returns A sample `Film` object.
+ */
 export const getSampleFilm = (): Film => {
   const filmDto = getSampleFilmDto()
   return {
@@ -18,6 +29,11 @@ export const getSampleFilm = (): Film => {
   }
 }
 
+/**
+ * Returns a sample `CreateFilmDto` object with predefined values for testing or demonstration.
+ *
+ * @returns A sample `CreateFilmDto` object.
+ */
 export const getSampleCreateFilmDto = (): CreateFilmDto => {
   const filmDto = getSampleFilmDto()
 
