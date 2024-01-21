@@ -1,11 +1,11 @@
 import { Body, Controller, Get, HttpCode, Post, UsePipes } from '@nestjs/common'
-import { AppService } from './app.service'
 import { CreateFilmDto, createCatSchema } from './dto/create-film.dto'
+import { AppService } from './app.service'
 import { ZodValidationPipe } from './pipes/zod-validation.pipe'
 
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) {}
+  constructor(private readonly appService: AppService) { }
 
   @Get()
   async get(): Promise<string> {
