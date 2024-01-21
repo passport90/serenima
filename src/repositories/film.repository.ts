@@ -30,7 +30,7 @@ export default class FilmRepository {
       VALUES
       (
         $1, $2, $3, $4,
-        to_tsvector('english', $2) || to_tsvector('english', EXTRACT(YEAR FROM $4)::TEXT)),
+        to_tsvector('english', $2) || to_tsvector('english', EXTRACT(YEAR FROM $4)::TEXT),
         NOW(),
         NOW()
       )
