@@ -9,13 +9,8 @@ import { Injectable } from '@nestjs/common'
 export class AppService {
   constructor(private filmRepository: FilmRepository) { }
 
-  getOne = async (): Promise<string> => {
-    const title = await this.filmRepository.getOneTitle()
-    if (title === null) {
-      return 'No films in the database.'
-    }
-
-    return title
+  search = async (keyword: string): Promise<Film[]> => {
+    return await this.filmRepository.search(keyword)
   }
 
   create = async (createFilmDto: CreateFilmDto): Promise<void> => {

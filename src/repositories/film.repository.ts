@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common'
-import { Optional, PgConstraintError, pgConstraintErrorSchema } from 'src/types'
+import { PgConstraintError, pgConstraintErrorSchema } from 'src/types'
 import Film from 'src/entities/film.entity'
 import { Pool } from 'pg'
 import { UniqueConstraintViolationError } from 'src/exceptions'
@@ -8,18 +8,29 @@ import { UniqueConstraintViolationError } from 'src/exceptions'
 export default class FilmRepository {
   constructor(@Inject('PG_POOL') private pgPool: Pool) { }
 
-  getOneTitle = async (): Promise<Optional<string>> => {
+  search = async (keyword: string): Promise<Film[]> => {
+    const tsquery = 'to_tsquery(\'english\', $1)'
+    const query = `
+        SELECT uuid, imdb_id, title, release_date
+        FROM film
+        WHERE title_vector @@ ${tsquery}
+        ORDER BY ts_rank(title_vector, ${tsquery}) DESC
+      `
     const client = await this.pgPool.connect()
+    try {
+      const rows = (await client.query(query, [keyword])).rows as {
+        uuid: string, imdb_id: string, title: string, release_date: Date
+      }[]
 
-    const res = await client.query('SELECT title FROM film LIMIT 1')
-
-    client.release()
-
-    if (res.rowCount === 0) {
-      return null
+      return rows.map(row => ({
+        ...row,
+        imdbId: row.imdb_id,
+        releaseDate: row.release_date,
+      }))
     }
-
-    return (res.rows as { title: string }[])[0].title
+    finally {
+      client.release()
+    }
   }
 
   create = async (film: Film): Promise<void> => {

@@ -3,20 +3,22 @@ import {
   Controller,
   Get,
   HttpCode,
+  Param,
   Post,
   UsePipes,
 } from '@nestjs/common'
 import { CreateFilmDto, createCatSchema } from './dto/create-film.dto'
 import { AppService } from './app.service'
+import Film from './entities/film.entity'
 import { ZodValidationPipe } from './pipes/zod-validation.pipe'
 
 @Controller()
 export class AppController {
   constructor(private readonly appService: AppService) { }
 
-  @Get()
-  async get(): Promise<string> {
-    return await this.appService.getOne()
+  @Get('/search')
+  async search(@Param('q') q: string): Promise<{ films: Film[] }> {
+    return { films: await this.appService.search(q) }
   }
 
   @Post()
