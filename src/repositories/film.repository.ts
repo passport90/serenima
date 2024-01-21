@@ -4,6 +4,13 @@ import Film from 'src/entities/film.entity'
 import { Pool } from 'pg'
 import { UniqueConstraintViolationError } from 'src/exceptions'
 
+interface FilmRow {
+  uuid: string
+  imdb_id: string
+  title: string
+  release_date: Date
+}
+
 @Injectable()
 export default class FilmRepository {
   constructor(@Inject('PG_POOL') private pgPool: Pool) { }
@@ -18,13 +25,12 @@ export default class FilmRepository {
       `
     const client = await this.pgPool.connect()
     try {
-      const rows = (await client.query(query, [keyword])).rows as {
-        uuid: string, imdb_id: string, title: string, release_date: Date
-      }[]
+      const rows = (await client.query(query, [keyword])).rows as FilmRow[]
 
       return rows.map(row => ({
-        ...row,
+        uuid: row.uuid,
         imdbId: row.imdb_id,
+        title: row.title,
         releaseDate: row.release_date,
       }))
     }
