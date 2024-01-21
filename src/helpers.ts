@@ -8,10 +8,10 @@ export const toIsoDate = (date: Date): string => {
   /** Extracted year from the date. */
   const year = date.getUTCFullYear()
 
-  /** Month string taken from extracted month from the date. */
+  /** Extracted month from the date, with zero-padding. */
   const month = String(date.getUTCMonth() + 1).padStart(2, '0')
 
-  /** Day string taken from extracted month from the date. */
+  /** Extracted day from the date, with zero-padding. */
   const day = String(date.getUTCDate()).padStart(2, '0')
 
   return `${year}-${month}-${day}`
