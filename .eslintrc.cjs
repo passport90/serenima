@@ -26,6 +26,8 @@ module.exports = {
     '@stylistic/comma-dangle': ['error', 'always-multiline'],
     '@stylistic/indent': ['error', 2],
     '@stylistic/max-len': ['error', { code: 120, tabWidth: 2 }],
+    '@stylistic/no-multi-spaces': 'error',
+    '@stylistic/no-multiple-empty-lines': 'error',
     '@stylistic/no-tabs': 'error',
     '@stylistic/no-trailing-spaces': 'error',
     '@stylistic/quotes': ['error', 'single'],
