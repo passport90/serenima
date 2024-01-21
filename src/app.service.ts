@@ -1,13 +1,19 @@
 import 'crypto'
 import { CreateFilmDto } from './dto/create-film.dto'
+import FilmRepository from './repositories/film.repository'
 import { Injectable } from '@nestjs/common'
 
 @Injectable()
 export class AppService {
-  constructor() { }
+  constructor(private filmRepository: FilmRepository) { }
 
   getOne = async (): Promise<string> => {
-    return 'hello world'
+    const title = await this.filmRepository.getOneTitle()
+    if (title === null) {
+      return 'No films in the database.'
+    }
+
+    return title
   }
 
   create = async (createFilmDto: CreateFilmDto): Promise<void> => {

@@ -1,8 +1,9 @@
-import { Module } from '@nestjs/common'
-import { ConfigModule } from '@nestjs/config'
-import { Pool } from 'pg'
 import { AppController } from './app.controller'
 import { AppService } from './app.service'
+import { ConfigModule } from '@nestjs/config'
+import FilmRepository from './repositories/film.repository'
+import { Module } from '@nestjs/common'
+import { Pool } from 'pg'
 
 @Module({
   imports: [ConfigModule.forRoot()],
@@ -11,8 +12,9 @@ import { AppService } from './app.service'
     AppService,
     {
       provide: 'PG_POOL',
-      useFactory: () => new Pool({ connectionString: process.env.DATABASE_URL }),
+      useFactory: (): Pool => new Pool({ connectionString: process.env.DATABASE_URL }),
     },
+    FilmRepository,
   ],
 })
 export class AppModule { }

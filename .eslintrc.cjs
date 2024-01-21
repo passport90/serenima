@@ -26,9 +26,10 @@ module.exports = {
     '@stylistic/comma-dangle': ['error', 'always-multiline'],
     '@stylistic/indent': ['error', 2],
     '@stylistic/max-len': ['error', { code: 120, tabWidth: 2 }],
-    '@stylistic/no-tabs': ['error'],
-    '@stylistic/no-trailing-spaces': ['error'],
+    '@stylistic/no-tabs': 'error',
+    '@stylistic/no-trailing-spaces': 'error',
     '@stylistic/quotes': ['error', 'single'],
     '@stylistic/semi': ['error', 'never'],
+    '@typescript-eslint/explicit-function-return-type': 'error',
   },
 };
