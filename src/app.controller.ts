@@ -14,7 +14,7 @@ export class AppController {
 
   @Post()
   @HttpCode(201)
-  @UsePipes(new ZodValidationPipe(createCatSchema))
+  @UsePipes(new ZodValidationPipe<CreateFilmDto>(createCatSchema))
   async create(@Body() createFilmDto: CreateFilmDto): Promise<string> {
     this.appService.create(createFilmDto)
 
