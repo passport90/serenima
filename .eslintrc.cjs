@@ -22,6 +22,7 @@ module.exports = {
     'camelcase': 'warn',
     'eqeqeq': 'error',
     'no-var': 'error',
+    'sort-imports': 'error',
     '@stylistic/comma-dangle': ['error', 'always-multiline'],
     '@stylistic/indent': ['error', 2],
     '@stylistic/max-len': ['error', { code: 120, tabWidth: 2 }],
