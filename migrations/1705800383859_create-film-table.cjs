@@ -8,13 +8,13 @@ exports.up = pgm => {
       uuid UUID PRIMARY KEY,
       imdb_id TEXT NOT NULL UNIQUE,
       title TEXT NOT NULL,
-      release_date DATE,
-      title_vector tsvector,
-      created_at TIMESTAMPTZ DEFAULT current_timestamp,
-      updated_at TIMESTAMPTZ DEFAULT current_timestamp
+      release_date DATE NOT NULL,
+      title_vector tsvector NOT NULL,
+      created_at TIMESTAMPTZ NOT NULL DEFAULT current_timestamp,
+      updated_at TIMESTAMPTZ NOT NULL DEFAULT current_timestamp
     );
 
-    CREATE INDEX idx_imdb_id ON film (imdb_id);
+    CREATE UNIQUE INDEX idx_imdb_id ON film (imdb_id);
     CREATE INDEX idx_release_date ON film (release_date);
     CREATE INDEX idx_title_vector ON film USING gin(title_vector);
 `)
