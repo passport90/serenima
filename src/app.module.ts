@@ -1,10 +1,11 @@
+/* istanbul ignore file */
 import { AppController } from './app.controller'
 import { AppService } from './app.service'
 import { ConfigModule } from '@nestjs/config'
 import FilmRepository from './repositories/film.repository'
 import { Module } from '@nestjs/common'
 import { Pool } from 'pg'
-import { SerenimaErrorFilter } from './exception-filter.filter'
+import { SerenimaErrorFilter } from './serenima-error.filter'
 
 @Module({
   imports: [ConfigModule.forRoot()],
@@ -22,4 +23,5 @@ import { SerenimaErrorFilter } from './exception-filter.filter'
     FilmRepository,
   ],
 })
+
 export class AppModule { }

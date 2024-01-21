@@ -1,5 +1,5 @@
 import FilmDto from './film.dto'
 
-export interface FilmListDto {
+export default interface FilmListDto {
   films: FilmDto[]
 }

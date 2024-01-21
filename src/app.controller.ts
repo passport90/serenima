@@ -7,9 +7,9 @@ import {
   Query,
   UsePipes,
 } from '@nestjs/common'
-import { CreateFilmDto, createCatSchema } from './dto/create-film.dto'
+import CreateFilmDto, { createCatSchema } from './dto/create-film.dto'
 import { AppService } from './app.service'
-import { FilmListDto } from './dto/film-list.dto'
+import FilmListDto from './dto/film-list.dto'
 import { ZodValidationPipe } from './pipes/zod-validation.pipe'
 import { toIsoDate } from './helpers'
 

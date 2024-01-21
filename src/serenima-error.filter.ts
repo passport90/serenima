@@ -4,7 +4,7 @@ import {
   ExceptionFilter,
   HttpStatus,
 } from '@nestjs/common'
-import { SerenimaError, ValidationError } from './exceptions'
+import { SerenimaError, ValidationError } from './errors'
 import { Response } from 'express'
 
 @Catch(SerenimaError)

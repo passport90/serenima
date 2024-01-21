@@ -1,6 +1,6 @@
 import 'crypto'
-import { UniqueConstraintViolationError, ValidationError } from './exceptions'
-import { CreateFilmDto } from './dto/create-film.dto'
+import { UniqueConstraintViolationError, ValidationError } from './errors'
+import CreateFilmDto from './dto/create-film.dto'
 import Film from './entities/film.entity'
 import FilmRepository from './repositories/film.repository'
 import { Injectable } from '@nestjs/common'

@@ -8,4 +8,5 @@ export const createCatSchema = z
   })
   .required()
 
-export type CreateFilmDto = z.infer<typeof createCatSchema>
+type CreateFilmDto = z.infer<typeof createCatSchema>
+export default CreateFilmDto

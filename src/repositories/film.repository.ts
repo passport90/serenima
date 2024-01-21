@@ -1,8 +1,9 @@
+/* istanbul ignore file */
 import { Inject, Injectable } from '@nestjs/common'
-import { PgConstraintError, pgConstraintErrorSchema } from 'src/types'
-import Film from 'src/entities/film.entity'
+import { PgConstraintError, pgConstraintErrorSchema } from '../types'
+import Film from '../entities/film.entity'
 import { Pool } from 'pg'
-import { UniqueConstraintViolationError } from 'src/exceptions'
+import { UniqueConstraintViolationError } from '../errors'
 
 interface FilmRow {
   uuid: string

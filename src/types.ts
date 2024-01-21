@@ -1,6 +1,5 @@
+/* istanbul ignore file */
 import { z } from 'zod'
-
-export type Optional<T> = T | null
 
 export const pgConstraintErrorSchema = z
   .object({
@@ -10,4 +9,5 @@ export const pgConstraintErrorSchema = z
     constraint: z.string(),
   })
   .required()
+
 export type PgConstraintError = z.infer<typeof pgConstraintErrorSchema>
