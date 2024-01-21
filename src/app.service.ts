@@ -1,5 +1,6 @@
 import 'crypto'
 import { CreateFilmDto } from './dto/create-film.dto'
+import Film from './entities/film.entity'
 import FilmRepository from './repositories/film.repository'
 import { Injectable } from '@nestjs/common'
 
@@ -17,8 +18,12 @@ export class AppService {
   }
 
   create = async (createFilmDto: CreateFilmDto): Promise<void> => {
-    createFilmDto
-    crypto.randomUUID()
-    return
+    const film: Film = {
+      ...createFilmDto,
+      uuid: crypto.randomUUID(),
+      releaseDate: new Date(createFilmDto.releaseDate),
+    }
+
+    await this.filmRepository.create(film)
   }
 }

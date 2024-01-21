@@ -3,9 +3,9 @@ export default interface Film {
   /** A unique identifier for the film. */
   uuid: string
   /** The IMDb ID of the film, a unique identifier for movies on IMDb. */
-  imdb_id: string
+  imdbId: string
   /** The title of the film. */
   title: string
-  /** The release date of the film in ISO 8601 format (e.g., "YYYY-MM-DD"). */
-  release_date: string
+  /** The release date of the film. Its time component is ignored. */
+  releaseDate: Date
 }
