@@ -5,5 +5,13 @@ export class ValidationError extends SerenimaError {
     super()
   }
 
-  getIssues = (): string[] => this.issues
+  getIssues = (): string[] => [...this.issues]
+}
+
+export class UniqueConstraintViolationError extends SerenimaError {
+  constructor(private field: string) {
+    super()
+  }
+
+  getViolatedField = (): string => this.field
 }

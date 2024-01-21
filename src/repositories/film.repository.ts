@@ -1,7 +1,8 @@
 import { Inject, Injectable } from '@nestjs/common'
+import { Optional, PgConstraintError, pgConstraintErrorSchema } from 'src/types'
 import Film from 'src/entities/film.entity'
-import { Optional } from 'src/types'
 import { Pool } from 'pg'
+import { UniqueConstraintViolationError } from 'src/exceptions'
 
 @Injectable()
 export default class FilmRepository {
@@ -23,8 +24,8 @@ export default class FilmRepository {
 
   create = async (film: Film): Promise<void> => {
     const client = await this.pgPool.connect()
-
-    await client.query(`
+    try {
+      await client.query(`
       INSERT INTO film
       (uuid, imdb_id, title, release_date, title_vector, created_at, updated_at)
       VALUES
@@ -35,7 +36,15 @@ export default class FilmRepository {
         NOW()
       )
     `, [film.uuid, film.imdbId, film.title, film.releaseDate])
+    } catch (error: unknown) {
+      const constraintError = pgConstraintErrorSchema.parse(error) as PgConstraintError
+      if (constraintError.code === '23505' && constraintError.constraint === 'film_imdb_id_key') {
+        throw new UniqueConstraintViolationError('imdbId')
+      }
 
-    client.release()
+      throw error
+    } finally {
+      client.release()
+    }
   }
 }

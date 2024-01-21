@@ -1,9 +1,9 @@
 import 'crypto'
+import { UniqueConstraintViolationError, ValidationError } from './exceptions'
 import { CreateFilmDto } from './dto/create-film.dto'
 import Film from './entities/film.entity'
 import FilmRepository from './repositories/film.repository'
 import { Injectable } from '@nestjs/common'
-import { ValidationError } from './exceptions'
 
 @Injectable()
 export class AppService {
@@ -30,6 +30,14 @@ export class AppService {
       releaseDate,
     }
 
-    await this.filmRepository.create(film)
+    try {
+      await this.filmRepository.create(film)
+    } catch (error: unknown) {
+      if (error instanceof UniqueConstraintViolationError) {
+        throw new ValidationError([`The specified \`${error.getViolatedField()}\` is already taken.`])
+      }
+
+      throw error
+    }
   }
 }
