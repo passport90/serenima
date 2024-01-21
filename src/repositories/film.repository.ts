@@ -16,7 +16,7 @@ export default class FilmRepository {
   constructor(@Inject('PG_POOL') private pgPool: Pool) { }
 
   search = async (keyword: string): Promise<Film[]> => {
-    const tsquery = 'to_tsquery(\'english\', $1)'
+    const tsquery = 'websearch_to_tsquery(\'english\', $1)'
     const query = `
         SELECT uuid, imdb_id, title, release_date
         FROM film
