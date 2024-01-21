@@ -3,6 +3,7 @@ import { CreateFilmDto } from './dto/create-film.dto'
 import Film from './entities/film.entity'
 import FilmRepository from './repositories/film.repository'
 import { Injectable } from '@nestjs/common'
+import { ValidationError } from './exceptions'
 
 @Injectable()
 export class AppService {
@@ -18,10 +19,15 @@ export class AppService {
   }
 
   create = async (createFilmDto: CreateFilmDto): Promise<void> => {
+    const releaseDate = new Date(createFilmDto.releaseDate)
+    if (isNaN(releaseDate.getTime())) {
+      throw new ValidationError(['`releaseDate` field is semantically incorrect.'])
+    }
+
     const film: Film = {
       ...createFilmDto,
       uuid: crypto.randomUUID(),
-      releaseDate: new Date(createFilmDto.releaseDate),
+      releaseDate,
     }
 
     await this.filmRepository.create(film)

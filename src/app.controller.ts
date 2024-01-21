@@ -1,4 +1,11 @@
-import { Body, Controller, Get, HttpCode, Post, UsePipes } from '@nestjs/common'
+import {
+  Body,
+  Controller,
+  Get,
+  HttpCode,
+  Post,
+  UsePipes,
+} from '@nestjs/common'
 import { CreateFilmDto, createCatSchema } from './dto/create-film.dto'
 import { AppService } from './app.service'
 import { ZodValidationPipe } from './pipes/zod-validation.pipe'
@@ -15,9 +22,7 @@ export class AppController {
   @Post()
   @HttpCode(201)
   @UsePipes(new ZodValidationPipe<CreateFilmDto>(createCatSchema))
-  async create(@Body() createFilmDto: CreateFilmDto): Promise<string> {
-    this.appService.create(createFilmDto)
-
-    return 'Created.'
+  async create(@Body() createFilmDto: CreateFilmDto): Promise<void> {
+    await this.appService.create(createFilmDto)
   }
 }
