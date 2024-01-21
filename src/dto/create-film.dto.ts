@@ -1,6 +1,7 @@
 import { z } from 'zod'
 
-export const createCatSchema = z
+/** Zod schema to validate CreateFilmDto */
+export const createFilmSchema = z
   .object({
     title: z.string(),
     imdbId: z.string(),
@@ -8,5 +9,5 @@ export const createCatSchema = z
   })
   .required()
 
-type CreateFilmDto = z.infer<typeof createCatSchema>
+type CreateFilmDto = z.infer<typeof createFilmSchema>
 export default CreateFilmDto
